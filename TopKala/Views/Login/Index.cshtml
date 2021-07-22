@@ -1,33 +1,70 @@
+@model TopKala.Models.ViewModels.LoginVM
 @{
     Layout = "_LayoutSimple";
+    var ReturnUrl = Model.ReturnUrl == "/" ? "" : Model.ReturnUrl;
 }
 
-<div class="main-content col-12 col-md-7 col-lg-5 mx-auto">
+<div class="main-content col-12 col-sm-9 col-md-7 col-lg-5 mx-auto">
     <div class="account-box">
         <a href="#" class="logo">
             <img src="~/img/logo.png" alt="">
         </a>
         <div class="account-box-title text-right">ورود به تاپ کالا</div>
+        @if (!string.IsNullOrEmpty(ViewBag.Message))
+        {
+            <span class="message-danger">
+                @ViewBag.Message
+            </span>
+        }
+        else if (Model.ReturnUrl != "/")
+        {
+            <span class="message-warning">
+                برای مشاهده این صفحه ابتدا باید وارد سایت شوید
+            </span>
+        }
         <div class="account-box-content">
-            <form class="form-account">
+            <form class="form-account form-common" asp-action="Index" method="POST">
                 <div asp-validation-summay="ModelOnly" class="text-danger"></div>
-                <div class="form-account-title">ایمیل یا شماره موبایل</div>
-                <div class="form-account-row">
-                    <label class="input-label"><i class="now-ui-icons users_single-02"></i></label>
-                    <input class="input-field" type="text"
-                        placeholder="ایمیل یا شماره موبایل خود را وارد نمایید">
+                <input asp-for="ReturnUrl" type="hidden">
+                <div class="form-account-title">
+                    <label asp-for="User_Email_Phone"></label>
                 </div>
-                <div class="form-account-title">رمز عبور
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="now-ui-icons users_single-02"></i>
+                        </span>
+                    </div>
+                    <input asp-for="User_Email_Phone" class="form-control">
+                    @* error section *@
+                    <div class="input-group-append d-none opacity-0" data-error-output="Name">
+                        <span class="input-group-text">
+                            <i class="fa fa-exclamation-circle" data-toggle="tooltip"></i>
+                        </span>
+                    </div>
+                </div>
+                <span asp-validation-for="User_Email_Phone" data-error-input="Name"></span>
+                <div class="form-account-title">
+                    <label asp-for="Password"></label>
                     <a href="" class="btn-link-border form-account-link">رمز
                         عبور خود را فراموش
                         کرده ام</a>
                 </div>
-                <div class="form-account-row">
-                    <label class="input-label"><i
-                            class="now-ui-icons ui-1_lock-circle-open"></i></label>
-                    <input class="input-field" type="password"
-                        placeholder="رمز عبور خود را وارد نمایید">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="now-ui-icons ui-1_lock-circle-open"></i>
+                        </span>
+                    </div>
+                    <input asp-for="Password" class="form-control">
+                    @* error section *@
+                    <div class="input-group-append d-none opacity-0" data-error-output="Password">
+                        <span class="input-group-text">
+                            <i class="fa fa-exclamation-circle" data-toggle="tooltip"></i>
+                        </span>
+                    </div>
                 </div>
+                <span asp-validation-for="Password" data-error-input="Password"></span>
                 <div class="form-account-row form-account-submit">
                     <div class="parent-btn">
                         <button class="dk-btn dk-btn-info">
@@ -38,17 +75,34 @@
                 </div>
                 <div class="form-account-agree">
                     <label class="checkbox-form checkbox-primary">
-                        <input type="checkbox" checked="checked" id="agree">
+                        <input asp-for="RememberMe" type="checkbox" checked="checked">
                         <span class="checkbox-check"></span>
                     </label>
-                    <label for="agree">مرا به خاطر داشته باش</label>
+                    <label asp-for="RememberMe"></label>
                 </div>
             </form>
         </div>
         <div class="account-box-footer">
             <span>کاربر جدید هستید؟</span>
-            <a asp-action="Register" class="btn-link-border">ثبت‌نام در
+            <a asp-action="Register" asp-route-ReturnUrl="@ReturnUrl" class="btn-link-border">ثبت‌نام در
                 تاپ کالا</a>
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/errorObserver.js"></script>
+    <script>
+        // Error Observers
+        attachObserver(
+            document.querySelector('[data-error-input="Name"]'),
+            document.querySelector('[data-error-output="Name"]')
+        );
+
+        attachObserver(
+            document.querySelector('[data-error-input="Password"]'),
+            document.querySelector('[data-error-output="Password"]')
+        );
+    </script>
+}

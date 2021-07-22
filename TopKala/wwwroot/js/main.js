@@ -154,3 +154,27 @@ $(document).ready(function () {
     // favorites product
 
 });
+
+// Developer Scripts 
+function displayAnimation(target, display){
+    if (display) {
+        if (target.classList.contains("d-none")) {
+            target.classList.remove("d-none");
+            setTimeout(function() {
+                target.classList.remove("opacity-0");
+            }, 20);
+        }
+    }
+    else {
+        if (!target.classList.contains("d-none")) {
+            target.classList.add("opacity-0");
+            target.addEventListener("transitionend", function(){
+                target.classList.add("d-none");
+            },{
+                capture: false,
+                once: true,
+                passive: false
+            });
+        }
+    }
+}

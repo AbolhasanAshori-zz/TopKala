@@ -5,9 +5,18 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using TopKala.DataAccess.Data;
+using System.Runtime.InteropServices;
+using TopKala.DataAccess.Repository.IRepository;
+using TopKala.DataAccess.Repository;
+using TopKala.Services.Interfaces;
+using Microsoft.AspNetCore.Identity;
+using TopKala.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace TopKala
 {
@@ -23,7 +32,17 @@ namespace TopKala
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<ApplicationDbContext>(
+                option => option.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddControllersWithViews();
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options => options.LoginPath="/login");
+            services.AddHttpContextAccessor();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUserManager, UserManager>();
+            services.AddScoped<ISignInManager, SignInManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,6 +63,7 @@ namespace TopKala
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

@@ -6900,3 +6900,138 @@ main.profile-user-page .responsive-profile-menu .dropdown-menu a i {
 }
 
 /* responsive */
+
+/* Developer Styles */
+
+.opacity-0 {
+    opacity: 0 !important;
+}
+
+.form-account-title > label {
+    margin-bottom: 0;
+}
+
+.message-warning, 
+.message-danger,
+.field-validation-error {
+    font-size: 14px;
+    line-height: 2;
+    padding: 15px 20px;
+    position: relative;
+    border-radius: 5px;
+    line-height: 22px;
+    margin: 15px 25px;
+    display: block;
+}
+
+.field-validation-error {
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.message-warning {
+    background-color: #fffde4;
+    border: 1px solid #f6e8a1;
+    color: #a37731;
+}
+
+.message-danger,
+.field-validation-error {
+    background-color: #ff898e;
+    border: 1px solid #ef5661;
+    color: #b71d37;
+}
+
+/* forms */
+.content-register {
+    width: auto;
+    max-width: 760px;
+}
+
+.form-account-submit {
+    display: flex;
+    justify-content: center;
+}
+
+.form-common .input-group-text {
+    padding-top: 0;
+    padding-bottom: 0;
+    background-color: transparent;
+}
+
+.form-common .input-group-prepend .input-group-text {
+    border: none;
+    background-color: transparent;
+    font-size: 1.5rem;
+    padding-right: .5rem;
+    padding-left: .5rem;
+}
+
+.form-common .input-group-prepend i:before {
+    color: #929292;
+}
+
+.form-common .input-group-append {
+    transition: all .3s linear;
+}
+
+.form-common .input-group-append .input-group-text {
+    border: none;
+    background-color: transparent;
+    font-size: 1.5rem;
+    padding-left: 0;
+    color: #ef5661;
+}
+
+.form-common .input-group-append .input-group-text i{
+    opacity: .6;
+    transition: all .25s linear;
+}
+
+.form-common .input-group-append .input-group-text i:hover{
+    opacity: 1;
+}
+
+.form-common .input-group {
+    border: 1px solid #c8c8c8;
+    border-radius: 5px;
+    padding: 2px .75rem;
+}
+
+.form-common .input-group .form-control {
+    border: none;
+    padding: 0;
+    direction: ltr;
+}
+
+.form-common .input-group .form-control::placeholder {
+    color: #c8c8c8;
+    font-size: 14px;
+    text-align: right;
+}
+
+@media (max-width: 576px) {
+    .form-account-submit {
+        display: block;
+    }
+}
+
+@media (max-width: 480px) {
+    .form-common .input-group-prepend .input-group-text {
+        font-size: 14px;
+    }
+
+    .form-common .input-group-append .input-group-text {
+        font-size: 1.25rem;
+    }
+
+    .form-common .input-group {
+        padding-top: 2px;
+        padding-bottom: 2px;
+        padding-right: 0.3rem;
+    }
+
+    .form-common .input-group .form-control::placeholder {
+        font-size: 13px;
+    }
+}
