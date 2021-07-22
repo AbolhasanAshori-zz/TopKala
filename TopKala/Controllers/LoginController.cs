@@ -43,28 +43,27 @@ namespace TopKala.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Index(LoginVM loginVM)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
+                return View(new LoginVM(){ ReturnUrl = loginVM.ReturnUrl });
+
+            User user = null;
+            try 
             {
-                try 
-                {
-                    User user = null;
-                    if (_userManager.VerifyPhoneNumber(loginVM.User_Email_Phone))
-                        user = _userManager.ValidatePasswordWithPhoneNumber(loginVM.User_Email_Phone, loginVM.Password, loginVM.RememberMe);
-                    else if (_userManager.VerifyEmail(loginVM.User_Email_Phone))
-                        user = _userManager.ValidatePasswordWithEmail(loginVM.User_Email_Phone, loginVM.Password, loginVM.RememberMe);
-                    else
-                        user = _userManager.ValidatePasswordWithUsername(loginVM.User_Email_Phone, loginVM.Password, loginVM.RememberMe);
-                    
-                    _signInManager.SignIn(user, loginVM.RememberMe);
-                    return LocalRedirect(loginVM.ReturnUrl);   
-                }
-                catch (UserNotFoundException)
-                {
-                    ViewBag.Message = "رمز عبور یا ایمیل یا شماره موبایل اشتباه می باشد";
-                    return View(loginVM);
-                }
+                if (_userManager.VerifyPhoneNumber(loginVM.User_Email_Phone))
+                    user = _userManager.ValidatePasswordWithPhoneNumber(loginVM.User_Email_Phone, loginVM.Password, loginVM.RememberMe);
+                else if (_userManager.VerifyEmail(loginVM.User_Email_Phone))
+                    user = _userManager.ValidatePasswordWithEmail(loginVM.User_Email_Phone, loginVM.Password, loginVM.RememberMe);
+                else
+                    user = _userManager.ValidatePasswordWithUsername(loginVM.User_Email_Phone, loginVM.Password, loginVM.RememberMe);
             }
-            return View(new LoginVM(){ ReturnUrl = loginVM.ReturnUrl });
+            catch (UserNotFoundException)
+            {
+                ViewBag.Message = "رمز عبور یا ایمیل یا شماره موبایل اشتباه می باشد";
+                return View(loginVM);
+            }
+
+            _signInManager.SignIn(user, loginVM.RememberMe);
+            return LocalRedirect(loginVM.ReturnUrl);
         }
 
         public IActionResult LogOut()
@@ -74,21 +73,93 @@ namespace TopKala.Controllers
         }
 
         [Route("/" + nameof(Register))]
-        public IActionResult Register()
+        public IActionResult Register(string ReturnUrl = "/")
         {
-            return View();
-        }  
+            RegisterVM registerVM = new RegisterVM()
+            {
+                ReturnUrl = ReturnUrl
+            };
+            return View(registerVM);
+        }
 
-        [Route("/" + nameof(Welcome))]
-        public IActionResult Welcome()
+        [HttpPost("/" + nameof(Register))]
+        [ValidateAntiForgeryToken]
+        public IActionResult Register(RegisterVM registerVM)
+        {
+            if (!ModelState.IsValid) 
+                return View(registerVM);
+
+            var user = new User()
+            {
+                Role = _unitOfWork.UserRole.GetFirstOrDefault(ur => ur.Name == "Normal"),
+                isActive = true
+            };
+
+            try
+            {
+                if (_userManager.CheckUsername(registerVM.Username))
+                    user.Username = registerVM.Username;
+
+                if (_userManager.VerifyPhoneNumber(registerVM.Email_Phone) 
+                        && _userManager.CheckPhoneNumber(registerVM.Email_Phone))
+                    user.PhoneNumber = registerVM.Email_Phone;
+                else if(_userManager.VerifyEmail(registerVM.Email_Phone) 
+                        && _userManager.CheckEmail(registerVM.Email_Phone))
+                    user.Email = registerVM.Email_Phone;
+                else
+                {
+                    ModelState.AddModelError(nameof(registerVM.Email_Phone),
+                        "لطفا ایمیل یا شماره موبایل خود را به درستی وارد نمایید");
+                    return View(registerVM);
+                }
+            }
+            catch (UserExistException ex)
+            {
+                ViewBag.Message = ex.Message;
+                return View(registerVM);
+            }
+
+            user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(registerVM.Password);
+            _unitOfWork.User.Add(user);
+            _unitOfWork.Save();
+
+            _signInManager.SignIn(user.Username, registerVM.Password, false);
+            return View("Welcome", registerVM.ReturnUrl);
+        }    
+
+        [Route("/" + nameof(Password))]
+        [Authorize]
+        public IActionResult Password()
         {
             return View();
         }
 
-        [Route("/" + nameof(Password))]
-        public IActionResult Password()
+        [HttpPost("/" + nameof(Password))]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public IActionResult Password(PasswordVM passwordVM)
         {
-            return View();
+            if (!ModelState.IsValid)
+                return View();
+
+            if (passwordVM.OldPassword == passwordVM.NewPassword)
+            {
+                ViewBag.Message = "رمز عبور نمی تواند تکراری باشد";
+                return View();
+            }
+
+            var username = HttpContext.User.FindFirstValue(ClaimTypes.Name);
+            var user = _unitOfWork.User.GetFirstOrDefault(u => u.Username == username);
+
+            if (!BCrypt.Net.BCrypt.Verify(passwordVM.OldPassword, user.PasswordHash))
+            {
+                ViewBag.Message = "رمز عبور قبلی نادرست می باشد";
+                return View();
+            }
+                
+            user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(passwordVM.NewPassword);
+            _unitOfWork.Save();
+            return RedirectToAction("Index", "Profile");
         }
     }
 }

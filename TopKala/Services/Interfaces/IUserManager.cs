@@ -16,9 +16,9 @@ namespace TopKala.Services.Interfaces
         bool CheckPhoneNumber(string phoneNumber);
         bool VerifyEmail(string email);
         bool VerifyPhoneNumber(string phoneNumber);
-        bool VerifyPassword(User user, string passwordHash);
-        User ValidatePasswordWithUsername(string username, string passwordHash, bool IsPersistent = false);
-        User ValidatePasswordWithEmail(string email, string passwordHash, bool IsPersistent = false);
-        User ValidatePasswordWithPhoneNumber(string phoneNumber, string passwordHash, bool IsPersistent = false);
+        bool VerifyPassword(User user, string password);
+        User ValidatePasswordWithUsername(string username, string password, bool IsPersistent = false);
+        User ValidatePasswordWithEmail(string email, string password, bool IsPersistent = false);
+        User ValidatePasswordWithPhoneNumber(string phoneNumber, string password, bool IsPersistent = false);
     }
 }

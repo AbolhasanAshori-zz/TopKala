@@ -1,40 +1,112 @@
+@model TopKala.Models.ViewModels.RegisterVM
 @{
     Layout = "_LayoutSimple";
+    var ReturnUrl = Model.ReturnUrl == "/" ? "" : Model.ReturnUrl;
 }
 
-<div class="main-content col-12 col-md-7 col-lg-5 mx-auto">
-    <div class="account-box">
+<div class="main-content content-register col-12 col-sm-9 col-md-10 col-lg-8 mx-auto">
+    <div class="account-box w-auto">
         <a href="#" class="logo">
             <img src="~/img/logo.png" alt="">
         </a>
         <div class="account-box-title">ثبت‌نام در تاپ کالا</div>
-        <div class="message-light">اگر قبلا با ایمیل ثبت‌نام کرده‌اید، نیاز به
-            ثبت‌نام مجدد با شماره
-            همراه ندارید</div>
+        @if (!string.IsNullOrEmpty(ViewBag.Message))
+        {
+            <span class="message-danger">
+                @ViewBag.Message
+            </span>
+        }
         <div class="account-box-content">
-            <form class="form-account">
-                <div class="form-account-title">پست الکترونیک یا شماره موبایل</div>
-                <div class="form-account-row">
-                    <label class="input-label"><i class="now-ui-icons users_single-02"></i></label>
-                    <input class="input-field" type="text"
-                        placeholder="پست الکترونیک یا شماره موبایل خود را وارد نمایید">
+            <form class="form-account form-common form-register" asp-action="Register" method="POST">
+                <div asp-validation-summay="ModelOnly" class="text-danger"></div>
+                <input asp-for="ReturnUrl" type="hidden">
+                <div class="form-row">
+                    <div class="col-md-6 col-12">
+                        <div class="form-account-title">
+                            <label asp-for="Email_Phone"></label>
+                        </div>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="now-ui-icons ui-1_email-85"></i>
+                                </span>
+                            </div>
+                            <input asp-for="Email_Phone" class="form-control">
+                            <div class="input-group-append d-none opacity-0" data-error-output="Email_Phone">
+                                <span class="input-group-text">
+                                    <i class="fa fa-exclamation-circle" data-toggle="tooltip" title=""></i>
+                                </span>
+                            </div>
+                        </div>
+                        <span asp-validation-for="Email_Phone" data-error-input="Email_Phone"></span>
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <div class="form-account-title">
+                            <label asp-for="Username"></label>
+                        </div>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="now-ui-icons users_single-02"></i>
+                                </span>
+                            </div>
+                            <input asp-for="Username" class="form-control">
+                            <div class="input-group-append d-none opacity-0" data-error-output="Username">
+                                <span class="input-group-text">
+                                    <i class="fa fa-exclamation-circle" data-toggle="tooltip" title=""></i>
+                                </span>
+                            </div>
+                        </div>
+                        <span asp-validation-for="Username" data-error-input="Username"></span>
+                    </div>
                 </div>
-                <div class="form-account-title">کلمه عبور</div>
-                <div class="form-account-row">
-                    <label class="input-label"><i
-                            class="now-ui-icons ui-1_lock-circle-open"></i></label>
-                    <input class="input-field" type="password"
-                        placeholder="کلمه عبور خود را وارد نمایید">
+                <div class="form-row">
+                    <div class="col-md-6 col-12">
+                        <div class="form-account-title">
+                            <label asp-for="Password"></label>
+                        </div>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="now-ui-icons ui-1_lock-circle-open"></i>
+                                </span>
+                            </div>
+                            <input asp-for="Password" class="form-control">
+                            <div class="input-group-append d-none opacity-0" data-error-output="Password">
+                                <span class="input-group-text">
+                                    <i class="fa fa-exclamation-circle" data-toggle="tooltip" title=""></i>
+                                </span>
+                            </div>
+                        </div>
+                        <span asp-validation-for="Password" data-error-input="Password"></span>
+                    </div>
+                    <div class="col-md-6 col-12">
+                         <div class="form-account-title">
+                            <label asp-for="PasswordRepeat"></label>
+                        </div>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="now-ui-icons ui-1_lock-circle-open"></i>
+                                </span>
+                            </div>
+                            <input asp-for="PasswordRepeat" class="form-control">
+                            <div class="input-group-append d-none opacity-0" data-error-output="PasswordRepeat">
+                                <span class="input-group-text">
+                                    <i class="fa fa-exclamation-circle" data-toggle="tooltip" title=""></i>
+                                </span>
+                            </div>
+                        </div>
+                        <span asp-validation-for="PasswordRepeat" data-error-input="PasswordRepeat"></span>
+                    </div>
                 </div>
+                   
                 <div class="form-account-agree">
                     <label class="checkbox-form checkbox-primary">
-                        <input type="checkbox" checked="checked">
+                        <input asp-for="PrivacyCheck" type="checkbox" checked="checked">
                         <span class="checkbox-check"></span>
                     </label>
-                    <label for="agree">
-                        <a href="#" class="btn-link-border">حریم خصوصی</a> و <a href="#"
-                            class="btn-link-border">شرایط و قوانین</a> استفاده از سرویس های سایت
-                        تاپ کالا را مطالعه نموده و با کلیه موارد آن موافقم.</label>
+                    <label asp-for="PrivacyCheck"></label>
                 </div>
                 <div class="form-account-row form-account-submit">
                     <div class="parent-btn">
@@ -48,12 +120,39 @@
         </div>
         <div class="account-box-footer">
             <span>قبلا در تاپ کالا ثبت‌نام کرده‌اید؟</span>
-            <a asp-action="Index" class="btn-link-border">وارد شوید</a>
+            <a asp-action="Index" asp-route-ReturnUrl="@ReturnUrl" class="btn-link-border">وارد شوید</a>
         </div>
     </div>
 </div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
-    <script src="~/js/registerValidation.js"></script>
+    <script src="~/js/errorObserver.js"></script>
+    <script>
+        window.onload = function(){
+            // hide error containers
+            var errorContainers = document.querySelectorAll('.field-validation-valid, .field-validation-error');
+            for (var error of errorContainers){
+                error.classList.add('d-none');
+            }
+        }
+        // Error Observers
+        attachObserver(
+            document.querySelector('[data-error-input="Email_Phone"]'),
+            document.querySelector('[data-error-output="Email_Phone"]')
+        );
+        attachObserver(
+            document.querySelector('[data-error-input="Username"]'),
+            document.querySelector('[data-error-output="Username"]')
+        );
+        attachObserver(
+            document.querySelector('[data-error-input="Password"]'),
+            document.querySelector('[data-error-output="Password"]')
+        );
+        attachObserver(
+            document.querySelector('[data-error-input="PasswordRepeat"]'),
+            document.querySelector('[data-error-output="PasswordRepeat"]')
+        );
+        
+    </script>
 }

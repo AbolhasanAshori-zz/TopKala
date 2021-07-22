@@ -13,11 +13,13 @@ namespace TopKala.Services
 {
     public class SignInManager : ISignInManager
     {
-        private readonly HttpContext httpContext;
+        private readonly HttpContext _context;
+        private readonly IUserManager _userManager;
 
-        public SignInManager(IHttpContextAccessor httpContextAccessor)
+        public SignInManager(IHttpContextAccessor httpContextAccessor, IUserManager userManager)
         {
-            httpContext = httpContextAccessor.HttpContext;
+            _context = httpContextAccessor.HttpContext;
+            _userManager = userManager;
         }
 
         public async void SignIn(User user, bool isPersistent)
@@ -31,13 +33,19 @@ namespace TopKala.Services
             var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             var principal = new ClaimsPrincipal(identity);
 
-            await httpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, new AuthenticationProperties() 
+            await _context.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, new AuthenticationProperties() 
             {
                 IsPersistent = isPersistent
             });
         }
 
+        public void SignIn(string username, string password, bool isPersistent)
+        {
+            var user = _userManager.ValidatePasswordWithUsername(username, password);
+            SignIn(user, isPersistent);
+        }
+
         public async void SignOut()
-            => await httpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            => await _context.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
     }
 }

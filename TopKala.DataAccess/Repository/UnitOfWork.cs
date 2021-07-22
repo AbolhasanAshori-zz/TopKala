@@ -16,12 +16,14 @@ namespace TopKala.DataAccess.Repository
             _db = db;
             Product = new ProductRepository(_db);
             User = new UserRepository(_db);
+            UserRole = new UserRoleRepository(_db);
         }
 
         public IProductRepository Product { get; private set; }
 
         public IUserRepository User { get; private set; }
 
+        public IUserRoleRepository UserRole { get; private set; }
 
         public void Dispose()
         {

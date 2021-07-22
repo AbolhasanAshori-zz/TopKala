@@ -1,5 +1,7 @@
+@model string
 @{
     Layout = "_LayoutSimple";
+    var ReturnUrl = Model ?? "/";
 }
 
 <div class="main-content col-12 col-md-7 col-lg-5 mx-auto">
@@ -18,13 +20,14 @@
                 <ul class="account-box-message-links">
                     <li>
                         <div class="parent-btn">
-                            <a href="#" class="dk-btn dk-btn-info">
+                            <a asp-controller="Profile" asp-action="Index" class="dk-btn dk-btn-info">
                                 تکمیل حساب کاربری
                                 <i class="now-ui-icons users_single-02"></i>
                             </a>
                         </div>
                     </li>
-                    <li><a href="#" class="btn-link-border">بازگشت به صفحه‌ای که در آن بودید</a></li>
+                    <li><a href="@ReturnUrl" 
+                            class="btn-link-border">بازگشت به صفحه‌ای که در آن بودید</a></li>
                 </ul>
             </div>
         </div>

@@ -10,6 +10,7 @@ namespace TopKala.Services.Interfaces
     public interface ISignInManager
     {
         void SignIn(User user, bool isPersistent);
+        void SignIn(string username, string password, bool isPersistent);
         void SignOut();
     }
 }

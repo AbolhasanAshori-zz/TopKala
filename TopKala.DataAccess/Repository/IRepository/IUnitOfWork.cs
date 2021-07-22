@@ -9,6 +9,7 @@ namespace TopKala.DataAccess.Repository.IRepository
     {
         IProductRepository Product { get; }
         IUserRepository User { get; }
+        IUserRoleRepository UserRole { get; }
         void Save();
     }
 }
