@@ -36,13 +36,22 @@ namespace TopKala
                 option => option.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddControllersWithViews();
+
+            // Cookie Authentication
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options => options.LoginPath="/login");
+
+            // Injtecting HttpContext to DI
             services.AddHttpContextAccessor();
+
+            // Repos
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUserRepository, UserRepository>();
+
+            // Services
             services.AddScoped<IUserManager, UserManager>();
             services.AddScoped<ISignInManager, SignInManager>();
+            services.AddScoped<IFileService, FileService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

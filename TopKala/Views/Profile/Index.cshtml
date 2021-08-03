@@ -1,3 +1,8 @@
+@model TopKala.Models.ViewModels.ProfileVM
+@{
+    var fullname = (!string.IsNullOrEmpty(Model.User.FirstName) ? Model.User.FirstName : "") + " "
+                + (!string.IsNullOrEmpty(Model.User.LastName) ? Model.User.LastName : "");
+}
 <main class="profile-user-page default">
     <div class="container">
         <div class="row">
@@ -12,41 +17,42 @@
                                 <div class="col-sm-12 col-md-6">
                                     <p>
                                         <span class="title">نام و نام خانوادگی :</span>
-                                        <span>جلال بهرامی راد</span>
+                                        <span>@(string.IsNullOrWhiteSpace(fullname) ? fullname : "-")</span>
                                     </p>
                                 </div>
                                 <div class="col-sm-12 col-md-6">
                                     <p>
                                         <span class="title">پست الکترونیک :</span>
-                                        <span>info@gmail.com</span>
+                                        <span>@(string.IsNullOrEmpty(Model.User.Email) ? Model.User.Email : "-")</span>
                                     </p>
                                 </div>
                                 <div class="col-sm-12 col-md-6">
                                     <p>
                                         <span class="title">شماره تلفن همراه:</span>
-                                        <span>-</span>
+                                        <span>@(string.IsNullOrEmpty(Model.User.PhoneNumber) ? Model.User.PhoneNumber : "-")</span>
                                     </p>
                                 </div>
                                 <div class="col-sm-12 col-md-6">
                                     <p>
                                         <span class="title">کد ملی :</span>
-                                        <span>-</span>
+                                        <span>@(string.IsNullOrEmpty(Model.User.IdNumber) ? Model.User.IdNumber : "-")</span>
                                     </p>
                                 </div>
                                 <div class="col-sm-12 col-md-6">
                                     <p>
+                                        @* TODO: Add Newsletter table *@
                                         <span class="title">دریافت خبرنامه :</span>
-                                        <span>بله</span>
+                                        <span>@(Model.User.IsNewsletterSubscripted ? "بله" : "خیر")</span>
                                     </p>
                                 </div>
                                 <div class="col-sm-12 col-md-6">
                                     <p>
                                         <span class="title">شماره کارت :</span>
-                                        <span>-</span>
+                                        <span>@(Model.User.CardNumber != 0 ? Model.User.CardNumber : "-")</span>
                                     </p>
                                 </div>
                                 <div class="col-12 text-center">
-                                    <a href="profile-additional-info.html" class="btn-link-border form-account-link">
+                                    <a asp-action="InfoAdditional" class="btn-link-border form-account-link">
                                         ویرایش اطلاعات شخصی
                                     </a>
                                 </div>
@@ -118,7 +124,11 @@
                     </div>
                 </div>
             </div>
-            <partial name="~/Views/Shared/Partials/_ProfileSide.cshtml" />
+            <partial name="~/Views/Shared/Partials/_ProfileSide.cshtml" model="Model.ProfileSideVM"/>
         </div>
     </div>
 </main>
+
+@section Scripts {
+    <script src="~/js/profileModal.js"></script>
+}

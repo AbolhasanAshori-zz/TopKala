@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
+using TopKala.DataAccess.Repository.IRepository;
 using TopKala.Models;
 using TopKala.Services.Interfaces;
 
@@ -15,11 +16,21 @@ namespace TopKala.Services
     {
         private readonly HttpContext _context;
         private readonly IUserManager _userManager;
+        private readonly IUserRepository _userRepository;
 
-        public SignInManager(IHttpContextAccessor httpContextAccessor, IUserManager userManager)
+        public SignInManager(IHttpContextAccessor httpContextAccessor, IUserManager userManager, IUserRepository userRepository)
         {
             _context = httpContextAccessor.HttpContext;
             _userManager = userManager;
+            _userRepository = userRepository;
+
+        }
+
+        public User GetUser()
+        {
+            // TODO: Check User Athentication
+            var username = _context.User.FindFirstValue(ClaimTypes.Name);
+            return _userRepository.GetFirstOrDefault(u => u.Username == username);
         }
 
         public async void SignIn(User user, bool isPersistent)

@@ -4345,12 +4345,12 @@ main.profile-user-page .modal-width-custom .modal-dialog {
     max-width: 600px;
 }
 
-main.profile-user-page ul.profile-avatars li {
+ul.profile-avatars li {
     display: inline-block;
     margin: 0 4px;
 }
 
-main.profile-user-page .profile-avatars-item {
+.profile-avatars-item {
     width: 112px;
     height: 112px;
     background: 50% 50% no-repeat;

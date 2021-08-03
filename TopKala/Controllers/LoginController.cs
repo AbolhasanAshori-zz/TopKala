@@ -92,7 +92,7 @@ namespace TopKala.Controllers
             var user = new User()
             {
                 Role = _unitOfWork.UserRole.GetFirstOrDefault(ur => ur.Name == "Normal"),
-                isActive = true
+                IsActive = true
             };
 
             try

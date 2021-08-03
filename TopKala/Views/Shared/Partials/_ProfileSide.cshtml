@@ -1,12 +1,12 @@
 @* TODO: Detect Active Page *@
-
+@model TopKala.Models.ViewModels.ProfileSideVM
 <div class="profile-page-aside col-xl-3 col-lg-4 col-md-6 center-section order-1">
     <div class="profile-box">
         <div class="profile-box-header">
             <div class="profile-box-avatar">
-                <img src="~/img/svg/user.svg" alt="">
+                <img src="@Model.Image" id="profile-image" alt="">
             </div>
-            <button data-toggle="modal" data-target="#myModal" class="profile-box-btn-edit">
+            <button id="profile" class="profile-box-btn-edit">
                 <i class="fa fa-pencil"></i>
             </button>
             <!-- Modal Core -->
@@ -45,23 +45,34 @@
                                 </li>
                             </ul>
                         </div>
+                        <div class="modal-footer">
+                            <form class="mx-auto">
+                                <input type="file" accept="image/*" name="profile" class="d-none" id="upload" data-ajax-input="upload">
+                                <button data-ajax-toggler="upload" class="btn btn-lg btn-secondary">
+                                    <label for="upload">آپلود عکس</label>
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
             <!-- Modal Core -->
         </div>
-        <div class="profile-box-username">بهرامی راد</div>
+        <div class="profile-box-username">
+            @Model.ProfileName
+        </div>
         <div class="profile-box-tabs">
             <a asp-controller="Login" asp-action="Password" class="profile-box-tab profile-box-tab-access">
                 <i class="now-ui-icons ui-1_lock-circle-open"></i>
                 تغییر رمز
             </a>
-            <a asp-controller="Home" asp-action="Index" class="profile-box-tab profile-box-tab--sign-out">
+            <a asp-controller="Login" asp-action="LogOut" class="profile-box-tab profile-box-tab--sign-out">
                 <i class="now-ui-icons media-1_button-power"></i>
                 خروج از حساب
             </a>
         </div>
     </div>
+    @* TODO: Detect Active View *@
     <div class="responsive-profile-menu show-md">
         <div class="btn-group">
             <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TopKala.DataAccess.Data;
 
 namespace TopKala.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210731151221_CorrectUserCapitalization")]
+    partial class CorrectUserCapitalization
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,12 +50,6 @@ namespace TopKala.DataAccess.Migrations
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsImageUploaded")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsNewsletterSubscripted")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsUserForeign")
                         .HasColumnType("bit");
 
                     b.Property<string>("LastName")
