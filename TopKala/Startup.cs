@@ -1,22 +1,18 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using TopKala.DataAccess.Data;
-using System.Runtime.InteropServices;
 using TopKala.DataAccess.Repository.IRepository;
 using TopKala.DataAccess.Repository;
 using TopKala.Services.Interfaces;
-using Microsoft.AspNetCore.Identity;
 using TopKala.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.AspNetCore.Http;
 
 namespace TopKala
 {
@@ -35,14 +31,19 @@ namespace TopKala
             services.AddDbContext<ApplicationDbContext>(
                 option => option.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
-            services.AddControllersWithViews();
-
-            // Cookie Authentication
+            services.AddControllersWithViews()
+                    .AddCookieTempDataProvider();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options => options.LoginPath="/login");
-
-            // Injtecting HttpContext to DI
             services.AddHttpContextAccessor();
+            services.AddSession(options => 
+            {
+                options.IdleTimeout = TimeSpan.FromHours(1);
+                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                options.Cookie.SameSite = SameSiteMode.Strict;
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
 
             // Repos
             services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -71,7 +72,13 @@ namespace TopKala
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseCookiePolicy();
+            app.UseSession(new SessionOptions()
+            {
+                Cookie = new CookieBuilder() {
+                    Name = ".TopKala.Session"
+                }
+            });
             app.UseAuthentication();
             app.UseAuthorization();
 

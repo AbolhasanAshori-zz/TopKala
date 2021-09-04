@@ -4331,10 +4331,11 @@ main.profile-user-page .profile-box-tabs a.profile-box-tab {
     line-height: 1.833;
     color: #7b7b7b;
     position: relative;
+    border-left: 1px solid #ebebeb;
 }
 
-main.profile-user-page .profile-box-tabs a.profile-box-tab:first-child {
-    border-left: 1px solid #ebebeb;
+main.profile-user-page .profile-box-tabs a.profile-box-tab:last-child {
+    border-left: none;
 }
 
 main.profile-user-page .profile-box-tabs i {
@@ -7008,6 +7009,10 @@ main.profile-user-page .responsive-profile-menu .dropdown-menu a i {
     color: #c8c8c8;
     font-size: 14px;
     text-align: right;
+}
+
+.input-group.disabled {
+    background-color: #e3e3e3;
 }
 
 @media (max-width: 576px) {

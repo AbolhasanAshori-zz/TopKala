@@ -1,0 +1,90 @@
+@model TopKala.Models.ViewModels.UsernameVM
+@{
+    Layout = "_LayoutSimple";
+}
+
+<div class="main-content col-12 col-md-7 col-lg-5 mx-auto">
+    <div class="account-box">
+        <a href="#" class="logo">
+            <img src="~/img/logo.png" alt="">
+        </a>
+        <div class="account-box-title">تغییر نام کاربری</div>
+        @if (!string.IsNullOrEmpty(ViewBag.Message))
+        {
+            <span class="message-danger">
+                @ViewBag.Message
+            </span>
+        }
+        <div class="account-box-content">
+            <form class="form-account form-common" method="POST">
+                <div asp-validation-summay="ModelOnly" class="text-danger"></div>
+                <input asp-for="ReturnUrl" type="hidden">
+                <div class="form-account-title">
+                    <label asp-for="OldUsername"></label>
+                </div>
+                <div class="input-group disabled">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="now-ui-icons users_single-02"></i>
+                        </span>
+                    </div>
+                    <input asp-for="OldUsername" class="form-control" readonly>
+                    <div class="input-group-append d-none opacity-0" data-error-output="OldUsername">
+                        <span class="input-group-text">
+                            <i class="fa fa-exclamation-circle" data-toggle="tooltip" title=""></i>
+                        </span>
+                    </div>
+                </div>
+                <span asp-validation-for="OldUsername" data-error-input="OldUsername"></span>
+                <div class="form-account-title">
+                    <label asp-for="NewUsername"></label>
+                </div>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="now-ui-icons users_single-02"></i>
+                        </span>
+                    </div>
+                    <input asp-for="NewUsername" class="form-control">
+                    <div class="input-group-append d-none opacity-0" data-error-output="NewUsername">
+                        <span class="input-group-text">
+                            <i class="fa fa-exclamation-circle" data-toggle="tooltip" title=""></i>
+                        </span>
+                    </div>
+                </div>
+                <span asp-validation-for="NewUsername" data-error-input="NewUsername"></span>
+                <div class="form-account-row form-account-submit">
+                    <div class="parent-btn">
+                        <button class="dk-btn dk-btn-info">
+                            تغییر نام کاربری
+                            <i class="now-ui-icons arrows-1_refresh-69"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/errorObserver.js"></script>
+    <script>
+        window.onload = function(){
+            // hide error containers
+            var errorContainers = document.querySelectorAll('.field-validation-valid, .field-validation-error');
+            for (var error of errorContainers){
+                error.classList.add('d-none');
+            }
+        }
+        // Error Observers
+        attachObserver(
+            document.querySelector('[data-error-input="OldUsername"]'),
+            document.querySelector('[data-error-output="OldUsername"]')
+        );
+        attachObserver(
+            document.querySelector('[data-error-input="NewUsername"]'),
+            document.querySelector('[data-error-output="NewUsername"]')
+        );
+    </script>
+}

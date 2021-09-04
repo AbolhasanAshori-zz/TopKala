@@ -1,0 +1,30 @@
+@model string
+@{
+    Layout = "_LayoutSimple";
+}
+
+<div class="main-content col-12 col-md-7 col-lg-5 mx-auto">
+    <div class="account-box text-center">
+        <a href="#" class="logo">
+            <img src="~/img/logo.png" alt="">
+        </a>
+        <div class="account-box-title text-center">تعویض نام کاربری</div>
+        <div class="account-box-content">
+            <div class="account-box-message">
+                <i class="account-box-message-icon now-ui-icons users_single-02"></i>
+                <h3>نام کاربری شما با موفقیت عوض شد</h3>
+                <p>برای ادامه باید دوباره وارد سرویس تاپ کالا شوید</p>
+                <ul class="account-box-message-links">
+                    <li>
+                        <div class="parent-btn">
+                            <a asp-controller="Login" asp-action="Index" asp-route-ReturnUrl="@Model" class="dk-btn dk-btn-info">
+                                رفتن به صفحه ی ورود
+                                <i class="now-ui-icons users_single-02"></i>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

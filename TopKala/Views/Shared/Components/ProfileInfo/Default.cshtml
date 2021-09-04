@@ -1,0 +1,64 @@
+@model TopKala.Models.ViewModels.ProfileInfoVM
+@{
+    string colSize = "col";
+    if (Model.ColSize == 12)
+    {
+        colSize = "col-12";
+    }
+    else if (Model.ColSize == 6)
+    {
+        colSize = "col-lg-6";
+    }
+}
+
+<div class="@colSize">
+    <div class="col-12">
+        <h1 class="title-tab-content">اطلاعات شخصی</h1>
+    </div>
+    <div class="content-section default">
+        <div class="row">
+            <div class="col-sm-12 col-md-6">
+                <p>
+                    <span class="title">نام و نام خانوادگی :</span>
+                    <span>@(!string.IsNullOrWhiteSpace(Model.Fullname) ? Model.Fullname : "-")</span>
+                </p>
+            </div>
+            <div class="col-sm-12 col-md-6">
+                <p>
+                    <span class="title">پست الکترونیک :</span>
+                    <span>@(!string.IsNullOrEmpty(Model.Email) ? Model.Email : "-")</span>
+                </p>
+            </div>
+            <div class="col-sm-12 col-md-6">
+                <p>
+                    <span class="title">شماره تلفن همراه:</span>
+                    <span>@(!string.IsNullOrEmpty(Model.PhoneNumber) ? Model.PhoneNumber : "-")</span>
+                </p>
+            </div>
+            <div class="col-sm-12 col-md-6">
+                <p>
+                    <span class="title">کد ملی :</span>
+                    <span>@(!string.IsNullOrEmpty(Model.IdNumber) ? Model.IdNumber : "-")</span>
+                </p>
+            </div>
+            <div class="col-sm-12 col-md-6">
+                <p>
+                    <span class="title">دریافت خبرنامه :</span>
+                    @* Code work fine, but because of RTL align, code result look misplaced *@
+                    <span>@(Model.NewsletterSubscript ? "بله" : "خیر")</span>
+                </p>
+            </div>
+            <div class="col-sm-12 col-md-6">
+                <p>
+                    <span class="title">شماره کارت :</span>
+                    <span>@(!string.IsNullOrEmpty(Model.CardNumber) ? Model.CardNumber : "-")</span>
+                </p>
+            </div>
+            <div class="col-12 text-center">
+                <a asp-action="InfoEdit" class="btn-link-border form-account-link">
+                    ویرایش اطلاعات شخصی
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,66 +1,12 @@
-@model TopKala.Models.ViewModels.ProfileVM
-@{
-    var fullname = (!string.IsNullOrEmpty(Model.User.FirstName) ? Model.User.FirstName : "") + " "
-                + (!string.IsNullOrEmpty(Model.User.LastName) ? Model.User.LastName : "");
-}
 <main class="profile-user-page default">
     <div class="container">
         <div class="row">
             <div class="profile-page col-xl-9 col-lg-8 col-md-12 order-2">
                 <div class="row">
+                    <vc:profile-info col-size="6"></vc:profile-info>
                     <div class="col-lg-6">
                         <div class="col-12">
-                            <h1 class="title-tab-content">اطلاعات شخصی</h1>
-                        </div>
-                        <div class="content-section default">
-                            <div class="row">
-                                <div class="col-sm-12 col-md-6">
-                                    <p>
-                                        <span class="title">نام و نام خانوادگی :</span>
-                                        <span>@(string.IsNullOrWhiteSpace(fullname) ? fullname : "-")</span>
-                                    </p>
-                                </div>
-                                <div class="col-sm-12 col-md-6">
-                                    <p>
-                                        <span class="title">پست الکترونیک :</span>
-                                        <span>@(string.IsNullOrEmpty(Model.User.Email) ? Model.User.Email : "-")</span>
-                                    </p>
-                                </div>
-                                <div class="col-sm-12 col-md-6">
-                                    <p>
-                                        <span class="title">شماره تلفن همراه:</span>
-                                        <span>@(string.IsNullOrEmpty(Model.User.PhoneNumber) ? Model.User.PhoneNumber : "-")</span>
-                                    </p>
-                                </div>
-                                <div class="col-sm-12 col-md-6">
-                                    <p>
-                                        <span class="title">کد ملی :</span>
-                                        <span>@(string.IsNullOrEmpty(Model.User.IdNumber) ? Model.User.IdNumber : "-")</span>
-                                    </p>
-                                </div>
-                                <div class="col-sm-12 col-md-6">
-                                    <p>
-                                        @* TODO: Add Newsletter table *@
-                                        <span class="title">دریافت خبرنامه :</span>
-                                        <span>@(Model.User.IsNewsletterSubscripted ? "بله" : "خیر")</span>
-                                    </p>
-                                </div>
-                                <div class="col-sm-12 col-md-6">
-                                    <p>
-                                        <span class="title">شماره کارت :</span>
-                                        <span>@(Model.User.CardNumber != 0 ? Model.User.CardNumber : "-")</span>
-                                    </p>
-                                </div>
-                                <div class="col-12 text-center">
-                                    <a asp-action="InfoAdditional" class="btn-link-border form-account-link">
-                                        ویرایش اطلاعات شخصی
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="col-12">
+                            @* TODO: Create user favorite products list *@
                             <h1 class="title-tab-content">لیست آخرین علاقمندی ها</h1>
                         </div>
                         <div class="content-section default">
@@ -124,7 +70,7 @@
                     </div>
                 </div>
             </div>
-            <partial name="~/Views/Shared/Partials/_ProfileSide.cshtml" model="Model.ProfileSideVM"/>
+            <vc:profile-side-bar></vc:profile-side-bar>
         </div>
     </div>
 </main>

@@ -1,3 +1,11 @@
+window.onload = function(){
+    // hide error containers
+    var errorContainers = document.querySelectorAll('.field-validation-valid, .field-validation-error');
+    for (var error of errorContainers){
+        error.classList.add('d-none');
+    }
+}
+
 function attachObserver(input, outputContainer){
     const observerConfig = { childList: true };
 

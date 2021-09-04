@@ -1,0 +1,122 @@
+@model TopKala.Models.ViewModels.ProfileInfoEditVM
+<main class="profile-user-page default">
+    <div class="container">
+        <div class="row">
+            <div class="profile-page col-xl-9 col-lg-8 col-md-12 order-2">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="col-12">
+                            <h1 class="title-tab-content">ویرایش اطلاعات شخصی</h1>
+                        </div>
+                        <div class="content-section default">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h1 class="title-tab-content">حساب شخصی</h1>
+                                </div>
+                            </div>
+                            <form asp-action="InfoEdit" method="POST" class="form-account">
+                                <div asp-validation-summary="ModelOnly"></div>
+                                <div class="row">
+                                    @* TODO: Create Form Input Partials *@
+                                    <div class="col-sm-12 col-md-6">
+                                        <div class="form-account-title">
+                                            <label asp-for="FirstName"></label>
+                                        </div>
+                                        <div class="form-account-row">
+                                            <input asp-for="FirstName" class="input-field text-right">
+                                        </div>
+                                        <span asp-validation-for="FirstName"></span>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6">
+                                        <div class="form-account-title">
+                                            <label asp-for="LastName"></label>
+                                        </div>
+                                        <div class="form-account-row">
+                                            <input asp-for="LastName" class="input-field text-right">
+                                        </div>
+                                        <span asp-validation-for="LastName"></span>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6">
+                                        <div class="form-account-title">
+                                            <label asp-for="IdNumber"></label>
+                                        </div>
+                                        <div class="form-account-row">
+                                            <input asp-for="IdNumber" class="input-field">
+                                        </div>
+                                        <span asp-validation-for="IdNumber"></span>
+                                        <div class="form-account-agree">
+                                            <label class="checkbox-form checkbox-primary">
+                                                <input asp-for="ForeignUser">
+                                                <span class="checkbox-check"></span>
+                                            </label>
+                                            <label asp-for="ForeignUser"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6">
+                                        <div class="form-account-title">
+                                            <label asp-for="CardNumber"></label>
+                                        </div>
+                                        <div class="form-account-row">
+                                            <input asp-for="CardNumber" class="input-field">
+                                        </div>
+                                        <span asp-validation-for="CardNumber"></span>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6">
+                                        <div class="form-account-title">
+                                            <label asp-for="PhoneNumber"></label>
+                                        </div>
+                                        <div class="form-account-row">
+                                            <input asp-for="PhoneNumber" class="input-field">
+                                        </div>
+                                        <span asp-validation-for="PhoneNumber"></span>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6">
+                                        <div class="form-account-title">
+                                            <label asp-for="Email"></label>
+                                        </div>
+                                        <div class="form-account-row">
+                                            <input asp-for="Email" class="input-field">
+                                        </div>
+                                        <span asp-validation-for="Email"></span>
+                                    </div>
+                                </div>
+                                <div class="col-12 no-padding">
+                                    <div class="form-account-agree">
+                                        <label class="checkbox-form checkbox-primary">
+                                            <input asp-for="Subscript">
+                                            <span class="checkbox-check"></span>
+                                        </label>
+                                        <label asp-for="Subscript"></label>
+                                    </div>
+                                </div>
+                                <div class="col-12 text-center">
+                                    <button class="btn btn-default btn-lg">ذخیره</button>
+                                    <a asp-action="Info" class="btn btn-danger btn-lg">انصراف</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <vc:profile-side-bar></vc:profile-side-bar>
+        </div>
+    </div>
+</main>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/profileModal.js"></script>
+    <script src="~/js/errorObserver.js"></script>
+    <script>
+        // Error Observers
+        attachObserver(
+            document.querySelector('[data-error-input="Name"]'),
+            document.querySelector('[data-error-output="Name"]')
+        );
+
+        attachObserver(
+            document.querySelector('[data-error-input="Password"]'),
+            document.querySelector('[data-error-output="Password"]')
+        );
+    </script>
+}

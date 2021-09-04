@@ -1,0 +1,12 @@
+@if (TempData["Error"] != null)
+{
+    <span class="message-danger">
+        @TempData["Error"]
+    </span>
+}
+else if (TempData["Warning"] != null)
+{
+    <span class="message-warning">
+        @TempData["Warning"]
+    </span>
+}

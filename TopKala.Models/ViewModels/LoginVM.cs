@@ -1,9 +1,5 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace TopKala.Models.ViewModels
 {
@@ -11,7 +7,7 @@ namespace TopKala.Models.ViewModels
     {
         [Display(Name = "ایمیل یا شماره موبایل", Prompt = "ایمیل یا شماره موبایل خود را وارد نمایید")]
         [Required(ErrorMessage = "ایمیل یا شماره موبایل نمی تواند خالی باشد")]
-        public string User_Email_Phone { get; set; }
+        public string UserEmailPhone { get; set; }
 
         [Display(Name = "رمز عبور", Prompt = "رمز عبور خود را وارد نمایید")]
         [DataType(DataType.Password)]

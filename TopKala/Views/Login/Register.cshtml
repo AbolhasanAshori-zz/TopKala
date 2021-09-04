@@ -10,12 +10,7 @@
             <img src="~/img/logo.png" alt="">
         </a>
         <div class="account-box-title">ثبت‌نام در تاپ کالا</div>
-        @if (!string.IsNullOrEmpty(ViewBag.Message))
-        {
-            <span class="message-danger">
-                @ViewBag.Message
-            </span>
-        }
+        <partial name="/Views/Shared/Partials/_Notification.cshtml" />
         <div class="account-box-content">
             <form class="form-account form-common form-register" asp-action="Register" method="POST">
                 <div asp-validation-summay="ModelOnly" class="text-danger"></div>
@@ -23,7 +18,7 @@
                 <div class="form-row">
                     <div class="col-md-6 col-12">
                         <div class="form-account-title">
-                            <label asp-for="Email_Phone"></label>
+                            <label asp-for="EmailPhone"></label>
                         </div>
                         <div class="input-group">
                             <div class="input-group-prepend">
@@ -31,14 +26,14 @@
                                     <i class="now-ui-icons ui-1_email-85"></i>
                                 </span>
                             </div>
-                            <input asp-for="Email_Phone" class="form-control">
-                            <div class="input-group-append d-none opacity-0" data-error-output="Email_Phone">
+                            <input asp-for="EmailPhone" class="form-control">
+                            <div class="input-group-append d-none opacity-0" data-error-output="EmailPhone">
                                 <span class="input-group-text">
                                     <i class="fa fa-exclamation-circle" data-toggle="tooltip" title=""></i>
                                 </span>
                             </div>
                         </div>
-                        <span asp-validation-for="Email_Phone" data-error-input="Email_Phone"></span>
+                        <span asp-validation-for="EmailPhone" data-error-input="EmailPhone"></span>
                     </div>
                     <div class="col-md-6 col-12">
                         <div class="form-account-title">
@@ -129,17 +124,10 @@
     <partial name="_ValidationScriptsPartial" />
     <script src="~/js/errorObserver.js"></script>
     <script>
-        window.onload = function(){
-            // hide error containers
-            var errorContainers = document.querySelectorAll('.field-validation-valid, .field-validation-error');
-            for (var error of errorContainers){
-                error.classList.add('d-none');
-            }
-        }
         // Error Observers
         attachObserver(
-            document.querySelector('[data-error-input="Email_Phone"]'),
-            document.querySelector('[data-error-output="Email_Phone"]')
+            document.querySelector('[data-error-input="EmailPhone"]'),
+            document.querySelector('[data-error-output="EmailPhone"]')
         );
         attachObserver(
             document.querySelector('[data-error-input="Username"]'),

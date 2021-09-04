@@ -10,24 +10,13 @@
             <img src="~/img/logo.png" alt="">
         </a>
         <div class="account-box-title text-right">ورود به تاپ کالا</div>
-        @if (!string.IsNullOrEmpty(ViewBag.Message))
-        {
-            <span class="message-danger">
-                @ViewBag.Message
-            </span>
-        }
-        else if (Model.ReturnUrl != "/")
-        {
-            <span class="message-warning">
-                برای مشاهده این صفحه ابتدا باید وارد سایت شوید
-            </span>
-        }
+        <partial name="/Views/Shared/Partials/_Notification.cshtml" />
         <div class="account-box-content">
             <form class="form-account form-common" asp-action="Index" method="POST">
                 <div asp-validation-summay="ModelOnly" class="text-danger"></div>
                 <input asp-for="ReturnUrl" type="hidden">
                 <div class="form-account-title">
-                    <label asp-for="User_Email_Phone"></label>
+                    <label asp-for="UserEmailPhone"></label>
                 </div>
                 <div class="input-group">
                     <div class="input-group-prepend">
@@ -35,7 +24,7 @@
                             <i class="now-ui-icons users_single-02"></i>
                         </span>
                     </div>
-                    <input asp-for="User_Email_Phone" class="form-control">
+                    <input asp-for="UserEmailPhone" class="form-control">
                     @* error section *@
                     <div class="input-group-append d-none opacity-0" data-error-output="Name">
                         <span class="input-group-text">
@@ -43,7 +32,7 @@
                         </span>
                     </div>
                 </div>
-                <span asp-validation-for="User_Email_Phone" data-error-input="Name"></span>
+                <span asp-validation-for="UserEmailPhone" data-error-input="Name"></span>
                 <div class="form-account-title">
                     <label asp-for="Password"></label>
                     <a href="" class="btn-link-border form-account-link">رمز

@@ -1,9 +1,5 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace TopKala.Models.ViewModels
 {
@@ -11,7 +7,7 @@ namespace TopKala.Models.ViewModels
     {
         [Display(Name = "ایمیل یا شماره موبایل", Prompt = "ایمیل یا شماره موبایل خود را وارد نمایید")]
         [Required(ErrorMessage = "ایمیل یا شماره موبایل نمی تواند خالی باشد")]
-        public string Email_Phone { get; set; }
+        public string EmailPhone { get; set; }
 
         [Display(Name = "نام کاربری", Prompt = "نام کاربری خود را وارد نمایید")]
         [StringLength(60, MinimumLength = 3, ErrorMessage = "طول نام کاربری باید بین 3 تا 60 حروف باشد")]

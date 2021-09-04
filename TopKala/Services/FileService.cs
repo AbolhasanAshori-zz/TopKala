@@ -38,6 +38,11 @@ namespace TopKala.Services
 
         public string UploadCreate(byte[] data, string extention, UploadType type = null)
         {
+            if (type is null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
             var filename = Guid.NewGuid() +  extention;
             var filePath = Path.Combine(GetDirectory(type), filename);
             var filePathRelative = GetRelativePath(filePath);
