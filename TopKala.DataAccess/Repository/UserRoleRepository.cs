@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using TopKala.DataAccess.Data;
 using TopKala.DataAccess.Repository.IRepository;
 using TopKala.Models;

@@ -1,5 +1,3 @@
-using System;
-
 namespace TopKala.Models.ViewModels
 {
     public class ErrorViewModel

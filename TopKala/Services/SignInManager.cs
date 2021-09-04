@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
@@ -23,7 +21,6 @@ namespace TopKala.Services
             _context = httpContextAccessor.HttpContext;
             _userManager = userManager;
             _userRepository = userRepository;
-
         }
 
         public User GetUser()
