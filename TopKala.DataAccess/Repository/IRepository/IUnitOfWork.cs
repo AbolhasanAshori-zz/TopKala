@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace TopKala.DataAccess.Repository.IRepository
 {
@@ -10,6 +7,7 @@ namespace TopKala.DataAccess.Repository.IRepository
         IProductRepository Product { get; }
         IUserRepository User { get; }
         IUserRoleRepository UserRole { get; }
+        IUserFavoriteProductRepository UserFavoriteProduct { get; }
         void Save();
     }
 }

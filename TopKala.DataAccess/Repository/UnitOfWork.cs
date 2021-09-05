@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using TopKala.DataAccess.Data;
 using TopKala.DataAccess.Repository.IRepository;
 
@@ -17,6 +13,7 @@ namespace TopKala.DataAccess.Repository
             Product = new ProductRepository(_db);
             User = new UserRepository(_db);
             UserRole = new UserRoleRepository(_db);
+            UserFavoriteProduct = new UserFavoriteProductRepository(_db);
         }
 
         public IProductRepository Product { get; private set; }
@@ -24,6 +21,7 @@ namespace TopKala.DataAccess.Repository
         public IUserRepository User { get; private set; }
 
         public IUserRoleRepository UserRole { get; private set; }
+        public IUserFavoriteProductRepository UserFavoriteProduct { get; private set; }
 
         public void Dispose()
         {

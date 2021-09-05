@@ -1,6 +1,6 @@
 namespace TopKala.Models
 {
-    public class UserRole : BaseEntity<int>
+    public class Category : TreeEntity<Category>
     {
         public string Name { get; set; }
     }
