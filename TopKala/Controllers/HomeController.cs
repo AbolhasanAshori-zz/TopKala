@@ -1,5 +1,10 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using TopKala.Models.ViewModels;
 
 namespace TopKala.Controllers
@@ -10,21 +15,14 @@ namespace TopKala.Controllers
         {
             return View();
         }
-        
+
         [Route("/Search")]
         public IActionResult Search()
         {
             return View();
         }
 
-        [Route("/Search")]
-        public IActionResult Search([FromQuery(Name = "s")]string searchString)
-        {
-            return View(new SearchVM(searchString));
-        }
-
-        [Route("/Search")]
-        public IActionResult Search(SearchVM searchVM)
+        public IActionResult SearchAmazing()
         {
             return View();
         }

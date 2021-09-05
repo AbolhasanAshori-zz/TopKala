@@ -1,17 +1,3 @@
-@model TopKala.Models.Product
-@using TopKala.Utility.Extentions;
-@{
-    IEnumerable<Category> productCategories = new List<Category>();
-
-    if (Model.Category != null)
-    {
-        productCategories.Append(Model.Category);
-        for (Category c = Model.Category.Parent; c != null; c = c.Parent)
-        {
-            productCategories.Append(c);
-        }
-    }
-}
 
 <main class="single-product default">
     <div class="container">
@@ -22,21 +8,18 @@
                         <li>
                             <a href="#"><span>فروشگاه اینترنتی تاپ کالا</span></a>
                         </li>
-                        @if (productCategories.Any())
-                        {
-                            @foreach (var pc in productCategories.Reverse())
-                            {
-                                <li>
-                                    <a asp-contoller="Category" asp-action="Index" asp-route-id="@pc.Name"><span>@pc.Name</span></a>
-                                </li>
-                            }
-                        }
-                        else
-                        {
-                            <li>
-                                <a href="#"><span>دسته بندی نشده ها</span></a>
-                            </li>
-                        }
+                        <li>
+                            <a href="#"><span>کالای دیجیتال</span></a>
+                        </li>
+                        <li>
+                            <a href="#"><span>موبایل</span></a>
+                        </li>
+                        <li>
+                            <a href="#"><span>گوشی موبایل</span></a>
+                        </li>
+                        <li>
+                            <span>گوشی موبایل اپل مدل iPhone X ظرفیت 256 گیگابایت</span>
+                        </li>
                     </ul>
                 </nav>
             </div>
@@ -47,23 +30,29 @@
                     <div class="row">
                         <div class="col-lg-4 col-md-6 col-sm-12">
                             <div class="product-gallery default">
-                                <img class="zoom-img" id="img-product-zoom" src="~/img/product/@(Model.Images.First())" data-zoom-image="~/img/product/@(Model.Images.First())" width="411" />
+                                <img class="zoom-img" id="img-product-zoom" src="~/img/product/1335154.jpg" data-zoom-image="~/img/product/13351544.jpg" width="411" />
 
                                 <div id="gallery_01f" style="width:500px;float:left;">
                                     <ul class="gallery-items">
-                                        @foreach (var image in Model.Images)
-                                        {
-                                            <li>
-                                                <a href="#" class="elevatezoom-gallery @(Model.Images.First() == image ? "active" : "")" data-image="~/img/product/@(image)" data-zoom-image="~/img/product/@(image)">
-                                                    <img src="~/img/product/@(image)" width="100" />
-                                                </a>
-                                            </li>
-                                        }
+                                        <li>
+                                            <a href="#" class="elevatezoom-gallery active" data-update="" data-image="~/img/product/2114766.jpg" data-zoom-image="~/img/product/2114766.jpg">
+                                                <img src="~/img/product/2114766.jpg" width="100" /></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="elevatezoom-gallery" data-image="~/img/product/3694075.jpg" data-zoom-image="~/img/product/3694075.jpg"><img src="~/img/product/3694075.jpg" width="100" /></a>
+                                        </li>
+                                        <li>
+                                            <a href="tester" class="elevatezoom-gallery" data-image="~/img/product/1335154.jpg" data-zoom-image="~/img/product/1335154.jpg">
+                                                <img src="~/img/product/1335154.jpg" width="100" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="tester" class="elevatezoom-gallery" data-image="~/img/product/110197298.jpg" data-zoom-image="~/img/product/110197298.jpg" class="slide-content"><img src="~/img/product/110197298.jpg" height="68" /></a>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
                             <ul class="gallery-options">
-                                @* TODO: Create Button Back *@
                                 <li>
                                     <button class="add-favorites"><i class="fa fa-heart"></i></button>
                                     <span class="tooltip-option">افزودن به علاقمندی</span>
@@ -127,93 +116,63 @@
                         <div class="col-lg-4 col-md-6 col-sm-12">
                             <div class="product-title default">
                                 <h1>
-                                    @(Model.Title)
-                                    @if (Model.EngTitle != null)
-                                    {
-                                        <span>@(Model.EngTitle)</span>
-                                    }
-                                </h1>
+                                    گوشی موبایل اپل مدل iPhone X ظرفیت 256 گیگابایت
+                                    <span>Apple iPhone X 256GB Mobile Phone</span></h1>
                             </div>
                             <div class="product-directory default">
                                 <ul>
                                     <li>
                                         <span>برند</span> :
-                                        <span class="product-brand-title">@(Model.Brand)</span>
+                                        <span class="product-brand-title">متفرقه</span>
                                     </li>
                                     <li>
                                         <span>دسته‌بندی</span> :
-                                        @if (Model.Category != null)
-                                        {
-                                            <a href="" class="btn-link-border">
-
-                                            </a>
-                                        }
+                                        <a href="#" class="btn-link-border">
+                                            ساعت هوشمند
+                                        </a>
                                     </li>
                                 </ul>
                             </div>
                             <div class="product-variants default">
                                 <span>انتخاب رنگ: </span>
+                                <div class="radio">
+                                    <input type="radio" name="radio1" id="radio1" value="option1">
+                                    <label for="radio1">
+                                        خاکستری
+                                    </label>
+                                </div>
 
-                                @foreach (var color in Model.Colors)
-                                {
-                                    <div class="radio">
-                                        if (color == Model.Colors.First())
-                                        {
-                                            <input type="radio" asp-for="@color.Name" value="@color.Name" checked />
-                                        }
-                                        else
-                                        {
-                                            <input type="radio" asp-for="@color.Name" value="@color.Name" />
-                                        }
-                                        <label asp-for="@color.Name">
-                                            @(color.Name)
-                                        </label>
-                                    </div>
-                                }
+                                <div class="radio">
+                                    <input type="radio" name="radio1" id="radio2" value="option2" checked="">
+                                    <label for="radio2">
+                                        نقره ای
+                                    </label>
+                                </div>
 
                             </div>
-                            <div id="seller-section">
-                                @{
-                                    var firstProduct = @Model.ProductSellers.First();
-                                }
-                                @* TODO: Seller Section *@
-                                @* TODO: Create Seller Controller *@
-                                <div class="product-guarantee default">
-                                    @if (!String.IsNullOrEmpty(firstProduct.Warrenty))
-                                    {
-                                        <i class="fa fa-check-circle"></i>
-                                        <p class="product-guarantee-text">@(firstProduct.Warrenty)</p>
-                                    }
-                                    else
-                                    {
-                                        <i class="fa fa-times-circle"></i>
-                                        <p class="product-guarantee-text">کالا فاقد گارانتی توسط فروشنده میباشد</p>
-                                    }
+                            <div class="product-guarantee default">
+                                <i class="fa fa-check-circle"></i>
+                                <p class="product-guarantee-text">گارانتی اصالت و سلامت فیزیکی کالا</p>
+                            </div>
+                            <div class="product-delivery-seller default">
+                                <p>
+                                    <i class="now-ui-icons shopping_shop"></i>
+                                    <span>فروشنده:‌</span>
+                                    <a href="#" class="btn-link-border">ناسا</a>
+                                </p>
+                            </div>
+                            <div class="price-product defualt">
+                                <div class="price-value">
+                                    <span> ۱۵,۳۹۰,۰۰۰ </span>
+                                    <span class="price-currency">تومان</span>
                                 </div>
-                                <div class="product-delivery-seller default">
-                                    <p>
-                                        <i class="now-ui-icons shopping_shop"></i>
-                                        <span>فروشنده:‌</span>
-                                        <a asp-controller="Seller" asp-action="Index" asp-route-id="@firstProduct.Seller.Id" class="btn-link-border">@(firstProduct.Seller.Name)</a>
-                                    </p>
-                                </div>
-                                <div class="price-product defualt">
-                                    <div class="price-value">
-                                        <span>@(firstProduct.Price.NumberConvertor(new System.Globalization.CultureInfo("fa-IR")))</span>
-                                        <span class="price-currency">تومان</span>
-                                    </div>
-                                    @if (firstProduct.PriceOff != null)
-                                    {
-                                        <div class="price-discount" data-title="تخفیف">
-                                            <span>
-                                                @(firstProduct.PriceOff)
-                                            </span>
-                                            <span>%</span>
-                                        </div>
-                                    }
+                                <div class="price-discount" data-title="تخفیف">
+                                    <span>
+                                        ۰
+                                    </span>
+                                    <span>%</span>
                                 </div>
                             </div>
-
                             <div class="product-add default">
                                 <div class="parent-btn">
                                     <a href="#" class="dk-btn dk-btn-info">
@@ -229,13 +188,31 @@
                             </div>
                             <div class="product-params default">
                                 <ul data-title="ویژگی‌های محصول">
-                                    @foreach (var pInfo in Model.ProductInfos)
-                                    {
-                                        <li>
-                                            <span>@(pInfo.Info.Name): </span>
-                                            <span>@(pInfo.Value)</span>
-                                        </li>
-                                    }
+                                    <li>
+                                        <span>حافظه داخلی: </span>
+                                        <span> 256 گیگابایت </span>
+                                    </li>
+                                    <li>
+                                        <span>شبکه های ارتباطی: </span>
+                                        <span> 2G,3G,4G </span>
+                                    </li>
+                                    <li>
+                                        <span>رزولوشن عکس: </span>
+                                        <span> 12.0 مگاپیکسل</span>
+                                    </li>
+                                    <li>
+                                        <span>تعداد سیم کارت: </span>
+                                        <span> تک </span>
+                                    </li>
+                                    <li>
+                                        <span>ویژگی‌های خاص: </span>
+                                        <span> مقاوم در برابر آب
+                                            مناسب عکاسی
+                                            مناسب عکاسی سلفی
+                                            مناسب بازی
+                                            مجهز به حس‌گر تشخیص چهره
+                                        </span>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -780,14 +757,3 @@
         </div>
     </div>
 </main>
-@* TODO: Seller Script *@
-@* @section Scripts {
-    <script>
-        $(".radio").children[0].addEventListener("click", function(){
-            $.ajax({
-                url: "",
-                
-            });
-        });
-    </script>
-} *@
