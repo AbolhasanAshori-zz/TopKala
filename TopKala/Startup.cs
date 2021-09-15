@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -28,8 +29,17 @@ namespace TopKala
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(
-                option => option.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<ApplicationDbContext>(option =>
+            {
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                {
+                    option.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+                }
+                else 
+                {
+                    option.UseSqlServer(Configuration.GetConnectionString("AlternativeConnection"));
+                }
+            });
             services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddControllersWithViews()
                     .AddCookieTempDataProvider();
