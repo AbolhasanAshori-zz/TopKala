@@ -13,16 +13,19 @@ namespace TopKala.DataAccess.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.Load("TopKala.Models"));
+            
 
             base.OnModelCreating(modelBuilder);
         }
 
         public DbSet<User> Users { get; set; }
         public DbSet<UserRole> UserRole { get; set; }
-        // public DbSet<Brand> Brands { get; set; }
-        // public DbSet<Category> Categories { get; set; }
-        // public DbSet<Product> Products { get; set; }
-        // public DbSet<Comment> Comments { get; set; }
-        // public DbSet<Seller> Sellers { get; set; }
+        // public DbSet<UserFavoriteProduct> UserFavoriteProducts { get; set; }
+
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Brand> Brands { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<Seller> Sellers { get; set; }
     }
 }
