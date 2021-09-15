@@ -58,6 +58,11 @@ namespace TopKala.Controllers
             }
 
             _signInManager.SignIn(user, loginVM.RememberMe);
+            if (loginVM.ReturnUrl == "/")
+            {
+                return RedirectToAction("Index", "Profile");
+            }
+
             return LocalRedirect(loginVM.ReturnUrl);
         }
 
