@@ -4,6 +4,13 @@ window.onload = function(){
     for (var error of errorContainers){
         error.classList.add('d-none');
     }
+    var errorInputs = document.querySelectorAll('[data-error-input]');
+    var errorOutputs = document.querySelectorAll('[data-error-output]');
+
+    errorInputs.forEach(
+        input => errorOutputs.forEach(
+            output => input.dataset.errorInput == output.dataset.errorOutput ? 
+                      attachObserver(input, output) : false));
 }
 
 function attachObserver(input, outputContainer){

@@ -82,16 +82,4 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
     <script src="~/js/errorObserver.js"></script>
-    <script>
-        // Error Observers
-        attachObserver(
-            document.querySelector('[data-error-input="Name"]'),
-            document.querySelector('[data-error-output="Name"]')
-        );
-
-        attachObserver(
-            document.querySelector('[data-error-input="Password"]'),
-            document.querySelector('[data-error-output="Password"]')
-        );
-    </script>
 }

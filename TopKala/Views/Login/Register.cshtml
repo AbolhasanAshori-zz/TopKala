@@ -123,24 +123,4 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
     <script src="~/js/errorObserver.js"></script>
-    <script>
-        // Error Observers
-        attachObserver(
-            document.querySelector('[data-error-input="EmailPhone"]'),
-            document.querySelector('[data-error-output="EmailPhone"]')
-        );
-        attachObserver(
-            document.querySelector('[data-error-input="Username"]'),
-            document.querySelector('[data-error-output="Username"]')
-        );
-        attachObserver(
-            document.querySelector('[data-error-input="Password"]'),
-            document.querySelector('[data-error-output="Password"]')
-        );
-        attachObserver(
-            document.querySelector('[data-error-input="PasswordRepeat"]'),
-            document.querySelector('[data-error-output="PasswordRepeat"]')
-        );
-        
-    </script>
 }

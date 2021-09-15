@@ -69,22 +69,4 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
     <script src="~/js/errorObserver.js"></script>
-    <script>
-        window.onload = function(){
-            // hide error containers
-            var errorContainers = document.querySelectorAll('.field-validation-valid, .field-validation-error');
-            for (var error of errorContainers){
-                error.classList.add('d-none');
-            }
-        }
-        // Error Observers
-        attachObserver(
-            document.querySelector('[data-error-input="OldUsername"]'),
-            document.querySelector('[data-error-output="OldUsername"]')
-        );
-        attachObserver(
-            document.querySelector('[data-error-input="NewUsername"]'),
-            document.querySelector('[data-error-output="NewUsername"]')
-        );
-    </script>
 }
