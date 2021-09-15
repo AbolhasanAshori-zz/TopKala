@@ -14,36 +14,50 @@
                                     <h1 class="title-tab-content">حساب شخصی</h1>
                                 </div>
                             </div>
-                            <form asp-action="InfoEdit" method="POST" class="form-account">
+                            <form asp-action="InfoEdit" method="POST" class="form-account form-common">
                                 <div asp-validation-summary="ModelOnly"></div>
                                 <div class="row">
-                                    @* TODO: Create Form Input Partials *@
                                     <div class="col-sm-12 col-md-6">
                                         <div class="form-account-title">
                                             <label asp-for="FirstName"></label>
                                         </div>
-                                        <div class="form-account-row">
-                                            <input asp-for="FirstName" class="input-field text-right">
+                                        <div class="input-group">
+                                            <input asp-for="FirstName" class="form-control text-right">
+                                            <div class="input-group-append d-none opacity-0" data-error-output="FirstName">
+                                                <span class="input-group-text">
+                                                    <i class="fa fa-exclamation-circle" data-toggle="tooltip"></i>
+                                                </span>
+                                            </div>
                                         </div>
-                                        <span asp-validation-for="FirstName"></span>
+                                        <span asp-validation-for="FirstName" data-error-input="FirstName"></span>
                                     </div>
                                     <div class="col-sm-12 col-md-6">
                                         <div class="form-account-title">
                                             <label asp-for="LastName"></label>
                                         </div>
-                                        <div class="form-account-row">
-                                            <input asp-for="LastName" class="input-field text-right">
+                                        <div class="input-group">
+                                            <input asp-for="LastName" class="form-control text-right">
+                                            <div class="input-group-append d-none opacity-0" data-error-output="LastName">
+                                                <span class="input-group-text">
+                                                    <i class="fa fa-exclamation-circle" data-toggle="tooltip"></i>
+                                                </span>
+                                            </div>
                                         </div>
-                                        <span asp-validation-for="LastName"></span>
+                                        <span asp-validation-for="LastName" data-error-input="LastName"></span>
                                     </div>
                                     <div class="col-sm-12 col-md-6">
                                         <div class="form-account-title">
                                             <label asp-for="IdNumber"></label>
                                         </div>
-                                        <div class="form-account-row">
-                                            <input asp-for="IdNumber" class="input-field">
+                                        <div class="input-group">
+                                            <input asp-for="IdNumber" class="form-control">
+                                            <div class="input-group-append d-none opacity-0" data-error-output="IdNumber">
+                                                <span class="input-group-text">
+                                                    <i class="fa fa-exclamation-circle" data-toggle="tooltip"></i>
+                                                </span>
+                                            </div>
                                         </div>
-                                        <span asp-validation-for="IdNumber"></span>
+                                        <span asp-validation-for="IdNumber" data-error-input="IdNumber"></span>
                                         <div class="form-account-agree">
                                             <label class="checkbox-form checkbox-primary">
                                                 <input asp-for="ForeignUser">
@@ -56,28 +70,43 @@
                                         <div class="form-account-title">
                                             <label asp-for="CardNumber"></label>
                                         </div>
-                                        <div class="form-account-row">
-                                            <input asp-for="CardNumber" class="input-field">
+                                        <div class="input-group">
+                                            <input asp-for="CardNumber" class="form-control">
+                                            <div class="input-group-append d-none opacity-0" data-error-output="CardNumber">
+                                                <span class="input-group-text">
+                                                    <i class="fa fa-exclamation-circle" data-toggle="tooltip"></i>
+                                                </span>
+                                            </div>
                                         </div>
-                                        <span asp-validation-for="CardNumber"></span>
+                                        <span asp-validation-for="CardNumber" data-error-input="CardNumber"></span>
                                     </div>
                                     <div class="col-sm-12 col-md-6">
                                         <div class="form-account-title">
                                             <label asp-for="PhoneNumber"></label>
                                         </div>
-                                        <div class="form-account-row">
-                                            <input asp-for="PhoneNumber" class="input-field">
+                                        <div class="input-group">
+                                            <input asp-for="PhoneNumber" class="form-control">
+                                            <div class="input-group-append d-none opacity-0" data-error-output="PhoneNumber">
+                                                <span class="input-group-text">
+                                                    <i class="fa fa-exclamation-circle" data-toggle="tooltip"></i>
+                                                </span>
+                                            </div>
                                         </div>
-                                        <span asp-validation-for="PhoneNumber"></span>
+                                        <span asp-validation-for="PhoneNumber" data-error-input="PhoneNumber"></span>
                                     </div>
                                     <div class="col-sm-12 col-md-6">
                                         <div class="form-account-title">
                                             <label asp-for="Email"></label>
                                         </div>
-                                        <div class="form-account-row">
-                                            <input asp-for="Email" class="input-field">
+                                        <div class="input-group">
+                                            <input asp-for="Email" class="form-control">
+                                            <div class="input-group-append d-none opacity-0" data-error-output="Email">
+                                                <span class="input-group-text">
+                                                    <i class="fa fa-exclamation-circle" data-toggle="tooltip"></i>
+                                                </span>
+                                            </div>
                                         </div>
-                                        <span asp-validation-for="Email"></span>
+                                        <span asp-validation-for="Email" data-error-input="Email"></span>
                                     </div>
                                 </div>
                                 <div class="col-12 no-padding">
@@ -105,18 +134,5 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
-    <script src="~/js/profileModal.js"></script>
     <script src="~/js/errorObserver.js"></script>
-    <script>
-        // Error Observers
-        attachObserver(
-            document.querySelector('[data-error-input="Name"]'),
-            document.querySelector('[data-error-output="Name"]')
-        );
-
-        attachObserver(
-            document.querySelector('[data-error-input="Password"]'),
-            document.querySelector('[data-error-output="Password"]')
-        );
-    </script>
 }
